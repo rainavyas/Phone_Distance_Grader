@@ -9,20 +9,18 @@ import torch
 class Pkl2Feat_worker():
     def __init__(self, pkl):
         self.pkl = pkl
-        self.features = []
-        self.speakerids = []
 
     def get_phones(self, alphabet='arpabet'):
         if alphabet == 'arpabet':
-                vowels = ['aa', 'ae', 'eh', 'ah', 'ea', 'ao', 'ia', 'ey', 'aw', 'ay', 'ax', 'er', 'ih', 'iy', 'uh', 'oh', 'oy', 'ow', 'ua', 'uw']
-                consonants = ['el', 'ch', 'en', 'ng', 'sh', 'th', 'zh', 'w', 'dh', 'hh', 'jh', 'em', 'b', 'd', 'g', 'f', 'h', 'k', 'm', 'l', 'n', 'p', 's', 'r', 't', 'v', 'y', 'z'] + ['sil']
-                phones = vowels + consonants
-                return phones
+            vowels = ['aa', 'ae', 'eh', 'ah', 'ea', 'ao', 'ia', 'ey', 'aw', 'ay', 'ax', 'er', 'ih', 'iy', 'uh', 'oh', 'oy', 'ow', 'ua', 'uw']
+            consonants = ['el', 'ch', 'en', 'ng', 'sh', 'th', 'zh', 'w', 'dh', 'hh', 'jh', 'em', 'b', 'd', 'g', 'f', 'h', 'k', 'm', 'l', 'n', 'p', 's', 'r', 't', 'v', 'y', 'z'] + ['sil']
+            phones = vowels + consonants
+            return phones
         if alphabet == 'graphemic':
-                vowels = ['a', 'e', 'i', 'o', 'u']
-                consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'] + ['sil']
-                phones = vowels + consonants
-                return phones
+            vowels = ['a', 'e', 'i', 'o', 'u']
+            consonants = ['b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'] + ['sil']
+            phones = vowels + consonants
+            return phones
         raise ValueError('Alphabet name not recognised: ' + alphabet)
 
     def kl_div(mu1, mu2, sig1, sig2):
@@ -54,7 +52,8 @@ class Pkl2Feat_worker():
         kld = 0.5 * (trace + msm + log_det_ratio - d)
         return -1.0 if (np.isnan(kld) or np.isinf(kld)) else kld
 
-    def get_pdf(obj, phones):
+    def get_pdf(phones):
+        obj = self.pkl
         n = len(obj['plp'][0][0][0][0][0]) # dimension of mfcc vector
 
         # Store all the means: num_spkrs x 48 x 13 x 1
@@ -64,33 +63,52 @@ class Pkl2Feat_worker():
         variances = np.zeros((len(obj['plp']), len(phones)-1, n, n))
 
         for spk in range(len(obj['plp'])):
-                SX = np.zeros((len(phones) - 1, n, 1))
-                N = np.zeros(len(phones) - 1)
-                SX2 = np.zeros((len(phones) - 1, n, n))
-                Sig = np.zeros((len(phones) - 1, n, n))
+            SX = np.zeros((len(phones) - 1, n, 1))
+            N = np.zeros(len(phones) - 1)
+            SX2 = np.zeros((len(phones) - 1, n, n))
+            Sig = np.zeros((len(phones) - 1, n, n))
 
-                for utt in range(len(obj['plp'][spk])):
-                        for w in range(len(obj['plp'][spk][utt])):
-                                for ph in range(len(obj['plp'][spk][utt][w])):
-                                        for frame in range(len(obj['plp'][spk][utt][w][ph])):
-                                                N[obj['phone'][spk][utt][w][ph]] += 1
-                                                X = np.reshape(np.array(obj['plp'][spk][utt][w][ph][frame]), [n, 1])
-                                                SX[obj['phone'][spk][utt][w][ph]] += X
-                                                SX2[obj['phone'][spk][utt][w][ph]] += np.matmul(X, np.transpose(X))
+            for utt in range(len(obj['plp'][spk])):
+                # Iterate through utterances
+                for w in range(len(obj['plp'][spk][utt])):
+                    # Iterate through words
+                    for ph in range(len(obj['plp'][spk][utt][w])):
+                        # Iterate through phones
+                        for frame in range(len(obj['plp'][spk][utt][w][ph])):
+                            # Iterate through frames
+                            N[obj['phone'][spk][utt][w][ph]] += 1
+                            X = np.reshape(np.array(obj['plp'][spk][utt][w][ph][frame]), [n, 1])
+                            SX[obj['phone'][spk][utt][w][ph]] += X
+                            SX2[obj['phone'][spk][utt][w][ph]] += np.matmul(X, np.transpose(X))
 
-                for ph in range(len(phones)-1):
-                        if N[ph] !=0:
-                                SX[ph] /= N[ph]
-                                SX2[ph] /= N[ph]
-                        m2 = np.matmul(SX[ph], np.transpose(SX[ph]))
-                        Sig[ph] = SX2[ph] - m2
+            for ph in range(len(phones)-1):
+                if N[ph] !=0:
+                    SX[ph] /= N[ph]
+                    SX2[ph] /= N[ph]
+                    m2 = np.matmul(SX[ph], np.transpose(SX[ph]))
+                    Sig[ph] = SX2[ph] - m2
 
-                means[spk] = SX
-                variances[spk] = Sig
+            means[spk] = SX
+            variances[spk] = Sig
 
         return means, variances
 
-    def get_all_speakers_features(self):
+    def get_all_feats(self, phones, SX, Sig):
+        obj = self.pkl
+        for spk in range(len(obj['plp'])):
+             k = 0
+            for i in range(len(phones) - 1):
+                for j in range(i + 1, len(phones) - 1):
+                    obj['pdf'][spk][k] = -1 if N[i] == 0 or N[j] == 0 else kl_div(SX[i], SX[j], Sig[i], Sig[j])
+                    k += 1
+
+    def write_pkl_object(self, filename):
+        '''
+        Writes the entire pickle object with all the data (including feature
+        vectors for each phone per speaker) to a pickle file.
+        '''
+
+    def work(self):
         '''
         Returns a num_speakers x 1128 dimension (48*47*0.5)
         numpy array, where each speaker has 1128 phone
@@ -102,10 +120,9 @@ class Pkl2Feat_worker():
         phones = self.get_phones()
 
         # Estimate the Gaussian pdfs for each speaker and each phone
-        means, covs = get_pdf(self.pkl, phones)
+        means, covs = get_pdf(phones)
 
-    def write_features_to_pkl(self, filename):
-        '''
-        Writes the phone distance features (as a list of lists)
-        and the speakerids to a pickle file.
-        '''
+        # Calculate feature vector for each speaker and update pkl object
+        get_all_feats(phones, means, variances)
+
+        # Write the pickle object to a pickle file
