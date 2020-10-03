@@ -95,7 +95,7 @@ class Pkl2Feat_worker():
     def get_all_feats(self, phones, SX, Sig):
         obj = self.pkl
         for spk in range(len(obj['plp'])):
-             k = 0
+            k = 0
             for i in range(len(phones) - 1):
                 for j in range(i + 1, len(phones) - 1):
                     obj['pdf'][spk][k] = -1 if N[i] == 0 or N[j] == 0 else kl_div(SX[i], SX[j], Sig[i], Sig[j])
