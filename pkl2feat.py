@@ -31,6 +31,7 @@ class Pkl2Feat_worker():
         Computes symmetric KL divergence (Jensen-Shannon divergence)
          between Gaussian pdfs
         '''
+        print("calculating kl again")
         if len(mu1.shape) != 2 or mu1.shape[1] != 1:
             raise ValueError('Mu1 should have shape [X,1] but instead has shape ' + str(mu1.shape))
         d = mu1.shape[0]
@@ -66,6 +67,7 @@ class Pkl2Feat_worker():
         variances = np.zeros((len(obj['plp']), len(phones)-1, n, n))
 
         for spk in range(len(obj['plp'])):
+            print("on speaker", spk)
             SX = np.zeros((len(phones) - 1, n, 1))
             N = np.zeros(len(phones) - 1)
             SX2 = np.zeros((len(phones) - 1, n, n))
