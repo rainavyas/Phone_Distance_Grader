@@ -4,6 +4,10 @@ phone for each speaker and then form the 1128 dim phone distance feature
 vector for each speaker.
 '''
 
+import numpy as np
+import pickle
+from util import read_pickles, load_pickle, norm, batch
+
 class Pkl2Feat_worker():
     def __init__(self, pkl, output_file_name):
         self.pkl = pkl
