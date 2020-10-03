@@ -126,7 +126,7 @@ class Pkl2Feat_worker():
         means, covs = self.get_pdf(phones)
 
         # Calculate feature vector for each speaker and update pkl object
-        self.get_all_feats(phones, means, variances)
+        self.get_all_feats(phones, means, covs)
 
         # Write the pickle object to a pickle file
 
