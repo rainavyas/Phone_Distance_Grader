@@ -95,7 +95,7 @@ class Pkl2Feat_worker():
                 k = 0
                 for i in range(len(phones) - 1):
                     for j in range(i + 1, len(phones) - 1):
-                        obj['pdf'][spk][k] = -1 if N[i] == 0 or N[j] == 0 else kl_div(SX[i], SX[j], Sig[i], Sig[j])
+                        obj['pdf'][spk][k] = -1 if N[i] == 0 or N[j] == 0 else self.kl_div(SX[i], SX[j], Sig[i], Sig[j])
                         k += 1
 
 
