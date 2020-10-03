@@ -3,6 +3,8 @@ convert a pickle file saved from python2 into a pickle file that can be
 read from python3
 '''
 
+import pickle
+
 def convert(input_file, output_file):
     with open(input_file, 'rb') as f:
         pkl = pickle.load(f, encoding="latin1")
