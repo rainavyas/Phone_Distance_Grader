@@ -4,8 +4,13 @@ read from python3
 '''
 
 import pickle
+import dill
 
 def convert(input_file, output_file):
+
+    # Convert Python 2 "ObjectType" to Python 3 object
+    dill._dill._reverse_typemap["ObjectType"] = object
+
     with open(input_file, 'rb') as f:
         pkl = pickle.load(f, encoding="latin1")
 
