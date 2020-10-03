@@ -4,8 +4,6 @@ phone for each speaker and then form the 1128 dim phone distance feature
 vector for each speaker.
 '''
 
-import torch
-
 class Pkl2Feat_worker():
     def __init__(self, pkl):
         self.pkl = pkl
