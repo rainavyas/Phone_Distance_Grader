@@ -91,19 +91,13 @@ class Pkl2Feat_worker():
                     m2 = np.matmul(SX[ph], np.transpose(SX[ph]))
                     Sig[ph] = SX2[ph] - m2
 
-            means[spk] = SX
-            variances[spk] = Sig
+            for spk in range(len(obj['plp'])):
+                k = 0
+                for i in range(len(phones) - 1):
+                    for j in range(i + 1, len(phones) - 1):
+                        obj['pdf'][spk][k] = -1 if N[i] == 0 or N[j] == 0 else kl_div(SX[i], SX[j], Sig[i], Sig[j])
+                        k += 1
 
-        return means, variances
-
-    def get_all_feats(self, phones, SX, Sig):
-        obj = self.pkl
-        for spk in range(len(obj['plp'])):
-            k = 0
-            for i in range(len(phones) - 1):
-                for j in range(i + 1, len(phones) - 1):
-                    obj['pdf'][spk][k] = -1 if N[i] == 0 or N[j] == 0 else kl_div(SX[i], SX[j], Sig[i], Sig[j])
-                    k += 1
 
     def write_pkl_object(self, filename):
         '''
@@ -123,10 +117,8 @@ class Pkl2Feat_worker():
         phones = self.get_phones()
 
         # Estimate the Gaussian pdfs for each speaker and each phone
-        means, covs = self.get_pdf(phones)
-
-        # Calculate feature vector for each speaker and update pkl object
-        self.get_all_feats(phones, means, covs)
+        # Then calculate the phone distance features for each speaker
+        self.get_pdf(phones)
 
         # Write the pickle object to a pickle file
 
