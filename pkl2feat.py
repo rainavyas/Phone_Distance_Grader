@@ -92,12 +92,11 @@ class Pkl2Feat_worker():
                     m2 = np.matmul(SX[ph], np.transpose(SX[ph]))
                     Sig[ph] = SX2[ph] - m2
 
-            for spk in range(len(obj['plp'])):
-                k = 0
-                for i in range(len(phones) - 1):
-                    for j in range(i + 1, len(phones) - 1):
-                        obj['pdf'][spk][k] = -1 if N[i] == 0 or N[j] == 0 else self.kl_div(SX[i], SX[j], Sig[i], Sig[j])
-                        k += 1
+            k = 0
+            for i in range(len(phones) - 1):
+                for j in range(i + 1, len(phones) - 1):
+                    obj['pdf'][spk][k] = -1 if N[i] == 0 or N[j] == 0 else self.kl_div(SX[i], SX[j], Sig[i], Sig[j])
+                    k += 1
 
 
     def write_pkl_object(self, filename):
