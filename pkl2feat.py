@@ -26,7 +26,7 @@ class Pkl2Feat_worker():
             return phones
         raise ValueError('Alphabet name not recognised: ' + alphabet)
 
-    def kl_div(mu1, mu2, sig1, sig2):
+    def kl_div(self, mu1, mu2, sig1, sig2):
         '''
         Computes symmetric KL divergence (Jensen-Shannon divergence)
          between Gaussian pdfs
@@ -55,7 +55,7 @@ class Pkl2Feat_worker():
         kld = 0.5 * (trace + msm + log_det_ratio - d)
         return -1.0 if (np.isnan(kld) or np.isinf(kld)) else kld
 
-    def get_pdf(phones):
+    def get_pdf(self, phones):
         obj = self.pkl
         n = len(obj['plp'][0][0][0][0][0]) # dimension of mfcc vector
 
