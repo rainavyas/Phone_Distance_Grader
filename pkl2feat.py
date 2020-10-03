@@ -5,8 +5,9 @@ vector for each speaker.
 '''
 
 class Pkl2Feat_worker():
-    def __init__(self, pkl):
+    def __init__(self, pkl, output_file_name):
         self.pkl = pkl
+        self.filename = output_file_name
 
     def get_phones(self, alphabet='arpabet'):
         if alphabet == 'arpabet':
@@ -124,3 +125,17 @@ class Pkl2Feat_worker():
         get_all_feats(phones, means, variances)
 
         # Write the pickle object to a pickle file
+
+
+# Load pickle file containing all the data
+pkl_file = '/home/alta/BLTSpeaking/grd-kk492/mfcc13/GKTS4-D3/grader/BLXXXgrd02/data/BLXXXgrd02.pkl'
+#pkl_file = '/home/alta/BLTSpeaking/grd-kk492/mfcc13/GKTS4-D3/grader/BLXXXeval3/data/BLXXXeval3.pkl'
+pkl = read_pickles([pkl_file])
+
+output_file_name = 'BLXXXgrd02'
+#output_file_name = 'BLXXXeval3'
+
+my_worker = Pkl2Feat_worker(pkl, output_file_name)
+my_worker.work()
+
+print(my_worker.pkl['pdf'][11])
