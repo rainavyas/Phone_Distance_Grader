@@ -6,7 +6,7 @@ vector for each speaker.
 
 import numpy as np
 import pickle
-from util import read_pickles, load_pickle, norm, batch
+#from util import read_pickles
 
 class Pkl2Feat_worker():
     def __init__(self, pkl, output_file_name):
@@ -134,7 +134,8 @@ class Pkl2Feat_worker():
 # Load pickle file containing all the data
 pkl_file = '/home/alta/BLTSpeaking/grd-kk492/mfcc13/GKTS4-D3/grader/BLXXXgrd02/data/BLXXXgrd02.pkl'
 #pkl_file = '/home/alta/BLTSpeaking/grd-kk492/mfcc13/GKTS4-D3/grader/BLXXXeval3/data/BLXXXeval3.pkl'
-pkl = read_pickles([pkl_file])
+#pkl = read_pickles([pkl_file])
+pkl = pickle.load(open(pkl_file, "rb"))
 
 output_file_name = 'BLXXXgrd02'
 #output_file_name = 'BLXXXeval3'
