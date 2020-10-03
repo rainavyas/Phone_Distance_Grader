@@ -13,3 +13,5 @@ When attempting to grade a speaker on their English fluency by only considering 
 
 
 # Dependencies
+
+pip install numpy
