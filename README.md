@@ -16,3 +16,5 @@ When attempting to grade a speaker on their English fluency by only considering 
 
 python3.6 or above
 pip install numpy
+pip install msgpack
+pip install msgpack-numpy
