@@ -138,4 +138,4 @@ output_file_name = 'BLXXXgrd02'
 my_worker = Pkl2Feat_worker(pkl, output_file_name)
 my_worker.work()
 
-print(my_worker.pkl['pdf'][11])
+print(my_worker.pkl['pdf'][10])
