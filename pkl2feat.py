@@ -135,7 +135,7 @@ class Pkl2Feat_worker():
 pkl_file = '/home/alta/BLTSpeaking/grd-kk492/mfcc13/GKTS4-D3/grader/BLXXXgrd02/data/BLXXXgrd02.pkl'
 #pkl_file = '/home/alta/BLTSpeaking/grd-kk492/mfcc13/GKTS4-D3/grader/BLXXXeval3/data/BLXXXeval3.pkl'
 #pkl = read_pickles([pkl_file])
-pkl = pickle.load(open(pkl_file, "rb"))
+pkl = pickle.load(open(pkl_file, "r"))
 
 output_file_name = 'BLXXXgrd02'
 #output_file_name = 'BLXXXeval3'
