@@ -14,4 +14,5 @@ When attempting to grade a speaker on their English fluency by only considering 
 
 # Dependencies
 
+python3.6 or above
 pip install numpy
