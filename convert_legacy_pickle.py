@@ -17,7 +17,8 @@ def convert(input_file, output_file):
     pickle.dump(pkl, open(output_file, 'wb'))
 
 
-input_file = '/home/alta/BLTSpeaking/grd-kk492/mfcc13/GKTS4-D3/grader/BLXXXgrd02/data/BLXXXgrd02.pkl'
+#input_file = '/home/alta/BLTSpeaking/grd-kk492/mfcc13/GKTS4-D3/grader/BLXXXgrd02/data/BLXXXgrd02.pkl'
+input_file = '/home/alta/BLTSpeaking/grd-graphemic-vr313/speech_processing/merger/adversarial/gradient_attck_mfcc_model/mypkl.pkl'
 output_file = '/home/alta/BLTSpeaking/exp-vr313/data/mfcc13/GKTS4-D3/grader/BLXXXgrd02/BLXXXgrd02.pkl'
 
 '''
