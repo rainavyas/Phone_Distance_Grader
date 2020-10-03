@@ -31,7 +31,6 @@ class Pkl2Feat_worker():
         Computes symmetric KL divergence (Jensen-Shannon divergence)
          between Gaussian pdfs
         '''
-        print("calculating kl again")
         if len(mu1.shape) != 2 or mu1.shape[1] != 1:
             raise ValueError('Mu1 should have shape [X,1] but instead has shape ' + str(mu1.shape))
         d = mu1.shape[0]
