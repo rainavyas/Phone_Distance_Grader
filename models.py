@@ -13,9 +13,10 @@ class FCC(torch.nn.Module):
     def forward(self, X):
 
         # Check input is nan
-        if np.isnan(np.sum(X.numpy())):
+        nan_list = torch.isnan(torch.sum(X, 1)).tolist()
+        if True in nan_list:
             print("some values from input are nan")
-                    
+
         h1 = F.relu(self.layer1(X))
         h2 = F.relu(self.layer2(h1))
         h3 = F.relu(self.layer3(h2))
