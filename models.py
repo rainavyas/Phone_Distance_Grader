@@ -14,4 +14,4 @@ class FCC(torch.nn.Module):
         h2 = torch.nn.ReLU(self.layer2(h1))
         h3 = torch.nn.ReLU(self.layer3(h2))
         y = self.layer4(h3)
-        return y
+        return y.squeeze()
