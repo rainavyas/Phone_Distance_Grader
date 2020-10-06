@@ -46,7 +46,7 @@ train_ds = TensorDataset(X_train, y_train)
 train_dl = DataLoader(train_ds, batch_size = bs, shuffle = True)
 
 model = FCC(num_features)
-print("made initialised")
+print("model initialised")
 
 criterion = torch.nn.MSELoss(reduction = 'mean')
 optimizer = torch.optim.SGD(model.parameters(), lr=lr)
