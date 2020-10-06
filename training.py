@@ -70,6 +70,7 @@ for epoch in range(epochs):
     model.eval()
     # Evaluate on dev set
     y_pr = model(X_dev)
+    print(y_pr)
     dev_loss = criterion(y_pr, y_dev)
     print(epoch, dev_loss.item())
 
