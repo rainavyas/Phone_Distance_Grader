@@ -19,3 +19,25 @@ When attempting to grade a speaker on their English fluency by only considering 
 
 ### pip install torch==1.4.0 torchvision==0.5.0 -f https://download.pytorch.org/whl/cu100/torch_stable.html -> using CUDA 10.0
 
+These dependencies cover all the requirements to run all the scripts in this repository.
+
+# pkl2feat.py
+
+All the input data is loaded from an existing pickle file.
+
+The probability density function (Gaussian) of each phone for each speaker is approximated in the mfcc vector space.
+
+The symmetric KL Divergence distances between each phone distribution is computed for each speaker.
+
+Each speaker thus has a 1128 dimensional feature vector.
+
+
+# training.py
+Loads the feature vector and the overall grade for each speaker.
+
+Trains a fully connected model to predict the overall grade.
+
+Saves the trained model as a .pt file.
+
+
+
