@@ -7,3 +7,12 @@ import pickle
 
 input_file = "BLXXXgrd02.pkl"
 pkl = pickle.load(open(input_file, "rb"))
+
+# Construct feature vectors tensor
+X = []
+
+for spk in range(len(pkl['plp'])):
+    X.append(pkl['pdf'][spk])
+
+# Construct the output scores tensor
+print(pkl.keys())
