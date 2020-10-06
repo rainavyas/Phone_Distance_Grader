@@ -11,7 +11,7 @@ class FCC(torch.nn.Module):
         self.layer4 = torch.nn.Linear(10, 1)
 
     def forward(self, X):
-        test - self.layer1(X)
+        test = self.layer1(X)
         h1 = F.relu(self.layer1(X))
         h2 = F.relu(self.layer2(h1))
         h3 = F.relu(self.layer3(h2))
