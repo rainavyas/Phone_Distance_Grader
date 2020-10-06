@@ -24,7 +24,7 @@ for spk in range(len(pkl['plp'])):
 
 # Construct the output scores tensor
 y = (pkl['score'])
-num_features = len(y[0])
+num_features = len(X[0])
 
 # Split into training and dev sets
 num_dev = 100
