@@ -5,9 +5,9 @@ from models import FCC
 import pickle
 
 # Define constants
-lr = 2*1e-3
-epochs = 20
-bs = 30
+lr = 5*1e-3
+epochs = 100
+bs = 80
 seed = 1
 
 torch.manual_seed(seed)
@@ -66,11 +66,10 @@ for epoch in range(epochs):
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
-
-    model.eval()
+      #  print(loss.item())
+    #model.eval()
     # Evaluate on dev set
     y_pr = model(X_dev)
-    print(y_pr)
     dev_loss = criterion(y_pr, y_dev)
     print(epoch, dev_loss.item())
 
