@@ -1,6 +1,6 @@
 import torch
 import torch.nn.functional as F
-
+import time
 class FCC(torch.nn.Module):
     def __init__(self, num_features):
 
@@ -13,11 +13,12 @@ class FCC(torch.nn.Module):
     def forward(self, X):
 
         # Check input is nan
-        nan_list = torch.isnan(torch.sum(X, 1)).tolist()
-        print(X)
-        if True in nan_list:
-            print("some values from input are nan")
+        #nan_list = torch.isnan(torch.sum(X, 1)).tolist()
+        #if True in nan_list:
+        #    print("some values from input are nan")
 
+        print(X[0][:10])
+        time.sleep(2)
         h1 = F.relu(self.layer1(X))
         h2 = F.relu(self.layer2(h1))
         h3 = F.relu(self.layer3(h2))
