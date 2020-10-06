@@ -6,7 +6,6 @@ vector for each speaker.
 
 import numpy as np
 import pickle
-#from util import read_pickles
 
 class Pkl2Feat_worker():
     def __init__(self, pkl, output_file_name):
