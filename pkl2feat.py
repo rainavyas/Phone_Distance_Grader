@@ -121,7 +121,7 @@ class Pkl2Feat_worker():
         self.get_pdf(phones)
 
         # Write the pickle object to a pickle file
-        write_pkl_object()
+        self.write_pkl_object()
 
 # Load pickle file containing all the data
 pkl_file = '/home/alta/BLTSpeaking/exp-vr313/data/mfcc13/GKTS4-D3/grader/BLXXXgrd02/BLXXXgrd02.pkl'
