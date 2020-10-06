@@ -15,4 +15,5 @@ class FCC(torch.nn.Module):
         h2 = r(self.layer2(h1))
         h3 = r(self.layer3(h2))
         y = self.layer4(h3)
+        print(y)
         return y.squeeze()
