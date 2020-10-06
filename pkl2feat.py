@@ -98,11 +98,12 @@ class Pkl2Feat_worker():
                     k += 1
 
 
-    def write_pkl_object(self, filename):
+    def write_pkl_object(self):
         '''
         Writes the entire pickle object with all the data (including feature
         vectors for each phone per speaker) to a pickle file.
         '''
+        pickle.dump(self.pkl, open(self.filename, "wb"))
 
     def work(self):
         '''
@@ -120,18 +121,15 @@ class Pkl2Feat_worker():
         self.get_pdf(phones)
 
         # Write the pickle object to a pickle file
-
+        write_pkl_object()
 
 # Load pickle file containing all the data
 pkl_file = '/home/alta/BLTSpeaking/exp-vr313/data/mfcc13/GKTS4-D3/grader/BLXXXgrd02/BLXXXgrd02.pkl'
 #pkl_file = '/home/alta/BLTSpeaking/exp-vr313/data/mfcc13/GKTS4-D3/grader/BLXXXeval3/BLXXXeval3.pkl'
-#pkl = read_pickles([pkl_file])
 pkl = pickle.load(open(pkl_file, "rb"))
 
-output_file_name = 'BLXXXgrd02'
-#output_file_name = 'BLXXXeval3'
+output_file_name = 'BLXXXgrd02.pkl'
+#output_file_name = 'BLXXXeval3.pkl'
 
 my_worker = Pkl2Feat_worker(pkl, output_file_name)
 my_worker.work()
-
-print(my_worker.pkl['pdf'][10])
