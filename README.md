@@ -17,3 +17,5 @@ When attempting to grade a speaker on their English fluency by only considering 
 ### python3.6 or above
 ### pip install numpy
 
+### pip install torch==1.4.0 torchvision==0.5.0 -f https://download.pytorch.org/whl/cu100/torch_stable.html -> using CUDA 10.0
+
