@@ -10,10 +10,9 @@ class FCC(torch.nn.Module):
         self.layer4 = torch.nn.Linear(10, 1)
 
     def forward(self, X):
-        r = torch.nn.ReLU()
-        h1 = r(self.layer1(X))
-        h2 = r(self.layer2(h1))
-        h3 = r(self.layer3(h2))
+        h1 = F.ReLU(self.layer1(X))
+        h2 = F.ReLU(self.layer2(h1))
+        h3 = F.ReLU(self.layer3(h2))
         y = self.layer4(h3)
         print(h1)
         return y.squeeze()
