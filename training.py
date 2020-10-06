@@ -15,4 +15,4 @@ for spk in range(len(pkl['plp'])):
     X.append(pkl['pdf'][spk])
 
 # Construct the output scores tensor
-print(pkl.keys())
+print(pkl['score'])
