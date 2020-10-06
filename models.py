@@ -1,4 +1,5 @@
 import torch
+import torch.nn.functional as F
 
 class FCC(torch.nn.Module):
     def __init__(self, num_features):
@@ -14,5 +15,4 @@ class FCC(torch.nn.Module):
         h2 = F.ReLU(self.layer2(h1))
         h3 = F.ReLU(self.layer3(h2))
         y = self.layer4(h3)
-        print(h1)
         return y.squeeze()
