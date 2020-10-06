@@ -26,6 +26,8 @@ for spk in range(len(pkl['plp'])):
 y = (pkl['score'])
 num_features = len(X[0])
 
+print(num_features)
+
 # Split into training and dev sets
 num_dev = 100
 X_dev = X[:num_dev]
