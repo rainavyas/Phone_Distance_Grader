@@ -14,6 +14,7 @@ class FCC(torch.nn.Module):
 
         # Check input is nan
         nan_list = torch.isnan(torch.sum(X, 1)).tolist()
+        print(nan_list)
         if True in nan_list:
             print("some values from input are nan")
 
