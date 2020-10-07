@@ -6,10 +6,10 @@ class FCC(torch.nn.Module):
 
         super(FCC, self).__init__()
         self.bn1 = torch.nn.BatchNorm1d(num_features=num_features)
-        self.layer1 = torch.nn.Linear(num_features, 100)
-        self.layer2 = torch.nn.Linear(100, 30)
-        self.layer3 = torch.nn.Linear(30, 10)
-        self.layer4 = torch.nn.Linear(10, 1)
+        self.layer1 = torch.nn.Linear(num_features, 1000)
+        self.layer2 = torch.nn.Linear(1000, 300)
+        self.layer3 = torch.nn.Linear(300, 20)
+        self.layer4 = torch.nn.Linear(20, 1)
 
     def forward(self, X):
 

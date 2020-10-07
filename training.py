@@ -5,9 +5,9 @@ from models import FCC
 import pickle
 
 # Define constants
-lr = 5*1e-3
-epochs = 100
-bs = 80
+lr = 1*1e-2
+epochs = 500
+bs = 200
 seed = 1
 
 torch.manual_seed(seed)
