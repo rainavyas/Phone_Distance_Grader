@@ -6,8 +6,8 @@ import pickle
 
 # Define constants
 lr = 1*1e-2
-epochs = 500
-bs = 200
+epochs = 200
+bs = 450
 seed = 1
 
 torch.manual_seed(seed)
