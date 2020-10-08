@@ -56,7 +56,7 @@ optimizer = torch.optim.SGD(model.parameters(), lr=lr)
 #optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
 
 # Define a scheduler for an adaptive learning rate
-lambda1 = lambda epoch: 0.99**epoch
+lambda1 = lambda epoch: 0.999**epoch
 scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda = lambda1)
 
 for epoch in range(epochs):
