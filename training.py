@@ -72,8 +72,7 @@ for epoch in range(epochs):
         # Zero gradients, backward pass, update weights
         optimizer.zero_grad()
         loss.backward()
-        #optimizer.step()
-        scheduler.step()
+        optimizer.step()
 
     print(loss.item())  
     model.eval()
@@ -83,6 +82,8 @@ for epoch in range(epochs):
     y_pr[y_pr<0]=0
     dev_loss = calculate_mse(y_pr.tolist(), y_dev.tolist())
     print(epoch, dev_loss)
+    
+    scheduler.step()
 
 
 # Save the model to a file
