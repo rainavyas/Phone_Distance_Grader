@@ -1,12 +1,14 @@
 import torch
 from torch.utils.data import TensorDataset
 from torch.utils.data import DataLoader
-from models import FCC
+from models import FCC, FCC_shallow
 import pickle
+from utility import calculate_mse
+
 
 # Define constants
-lr = 1*1e-2
-epochs = 200
+lr = 3*1e-2
+epochs = 800
 bs = 450
 seed = 1
 
@@ -51,6 +53,11 @@ print("model initialised")
 
 criterion = torch.nn.MSELoss(reduction = 'mean')
 optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+#optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+
+# Define a scheduler for an adaptive learning rate
+lambda1 = lambda epoch: 0.99**epoch
+scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lr_lambda = lambda1)
 
 for epoch in range(epochs):
     model.train()
@@ -65,13 +72,17 @@ for epoch in range(epochs):
         # Zero gradients, backward pass, update weights
         optimizer.zero_grad()
         loss.backward()
-        optimizer.step()
-      #  print(loss.item())
-    #model.eval()
+        #optimizer.step()
+        scheduler.step()
+
+    print(loss.item())  
+    model.eval()
     # Evaluate on dev set
     y_pr = model(X_dev)
-    dev_loss = criterion(y_pr, y_dev)
-    print(epoch, dev_loss.item())
+    y_pr[y_pr>6]=6
+    y_pr[y_pr<0]=0
+    dev_loss = calculate_mse(y_pr.tolist(), y_dev.tolist())
+    print(epoch, dev_loss)
 
 
 # Save the model to a file
