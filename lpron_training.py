@@ -28,9 +28,6 @@ for spk in range(len(pkl['plp'])):
     # log all the features
     X.append(log_feats)
 
-# log all the features
-
-
 # Construct the output scores tensor
 y = (pkl['score'])
 num_features = len(X[0])
