@@ -9,8 +9,8 @@ import math
 
 # Define constants
 lr = 3*1e-2
-epochs = 200
-bs = 30
+epochs = 800
+bs = 450
 seed = 1
 
 torch.manual_seed(seed)
@@ -24,7 +24,7 @@ X = []
 
 for spk in range(len(pkl['plp'])):
     feats = pkl['pdf'][spk]
-    log_feats = [math.log(feat) for feat in feats if feat != -1 else feat]
+    log_feats = [math.log(feat) if feat != -1 else feat for feat in feats]
     # log all the features
     X.append(log_feats)
 
@@ -59,8 +59,8 @@ model = FCC(num_features)
 print("model initialised")
 
 criterion = torch.nn.MSELoss(reduction = 'mean')
-#optimizer = torch.optim.SGD(model.parameters(), lr=lr)
-optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+#optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
 
 # Define a scheduler for an adaptive learning rate
 lambda1 = lambda epoch: 0.999**epoch
