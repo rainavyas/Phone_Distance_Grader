@@ -9,14 +9,14 @@ import math
 
 # Define constants
 lr = 3*1e-2
-epochs = 800
+epochs = 70
 bs = 450
 seed = 1
 
 torch.manual_seed(seed)
 
 input_file = "BLXXXgrd02.pkl"
-output_file = "FCC_pron_"+str(seed)+".pt"
+output_file = "FCC_lpron_"+str(seed)+".pt"
 pkl = pickle.load(open(input_file, "rb"))
 
 # Construct feature vectors tensor
