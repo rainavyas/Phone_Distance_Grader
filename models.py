@@ -41,10 +41,10 @@ class FCC_shallow(torch.nn.Module):
         super(FCC_shallow, self).__init__()
         self.bn1 = torch.nn.BatchNorm1d(num_features=num_features)
         self.fc1 = torch.nn.Linear(num_features, 1000)
-        self.fc2 = torch.nn.Linear(1000, 300)
-        self.fc3 = torch.nn.Linear(300, 20)
-        self.fc4 = torch.nn.Linear(20, 1)
-	#self.drop_layer = torch.nn.Dropout(p=0.5)
+        self.fc2 = torch.nn.Linear(1000, 30)
+        self.fc3 = torch.nn.Linear(30, 30)
+        self.fc4 = torch.nn.Linear(30, 1)
+	    #self.drop_layer = torch.nn.Dropout(p=0.5)
 
     def forward(self, X):
 
@@ -58,6 +58,5 @@ class FCC_shallow(torch.nn.Module):
 
         h1 = F.relu(self.fc1(X_norm))
         h2 = F.relu(self.fc2(h1))
-        h3 = F.relu(self.fc3(h2))
-        y = self.fc4(h3)
+        y = self.fc4(h2)
         return y.squeeze()
