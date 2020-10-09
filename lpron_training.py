@@ -9,7 +9,7 @@ import math
 
 # Define constants
 lr = 3*1e-2
-epochs = 70
+epochs = 400
 bs = 450
 seed = 1
 
