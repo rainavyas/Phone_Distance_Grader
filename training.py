@@ -8,8 +8,8 @@ from utility import calculate_mse
 
 # Define constants
 lr = 3*1e-2
-epochs = 200
-bs = 30
+epochs = 800
+bs = 450
 seed = 1
 
 torch.manual_seed(seed)
@@ -52,8 +52,8 @@ model = FCC(num_features)
 print("model initialised")
 
 criterion = torch.nn.MSELoss(reduction = 'mean')
-#optimizer = torch.optim.SGD(model.parameters(), lr=lr)
-optimizer = torch.optim.AdamW(model.parameters(), lr=lr)
+optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+#optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
 # Define a scheduler for an adaptive learning rate
 lambda1 = lambda epoch: 0.999**epoch

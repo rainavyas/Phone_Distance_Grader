@@ -29,7 +29,7 @@ class FCC(torch.nn.Module):
         h1 = F.relu(self.fc1(X_norm))
         h2 = F.relu(self.fc2(self.drop_layer(h1)))
         h3 = F.relu(self.fc3(h2))
-        h4 = F.relu(self.fc4(h3))
+        h4 = F.relu(self.fc4(self.drop_layer(h3)))
         h5 = F.relu(self.fc5(h4))
         h6 = F.relu(self.fc6(h5))
         y = self.fc7(h6)
