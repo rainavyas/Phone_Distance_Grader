@@ -124,12 +124,12 @@ class Pkl2Feat_worker():
         self.write_pkl_object()
 
 # Load pickle file containing all the data
-pkl_file = '/home/alta/BLTSpeaking/exp-vr313/data/mfcc13/GKTS4-D3/grader/BLXXXgrd02/BLXXXgrd02.pkl'
-#pkl_file = '/home/alta/BLTSpeaking/exp-vr313/data/mfcc13/GKTS4-D3/grader/BLXXXeval3/BLXXXeval3.pkl'
+#pkl_file = '/home/alta/BLTSpeaking/exp-vr313/data/mfcc13/GKTS4-D3/grader/BLXXXgrd02/BLXXXgrd02.pkl'
+pkl_file = '/home/alta/BLTSpeaking/exp-vr313/data/mfcc13/GKTS4-D3/grader/BLXXXeval3/BLXXXeval3.pkl'
 pkl = pickle.load(open(pkl_file, "rb"))
 
-output_file_name = 'BLXXXgrd02.pkl'
-#output_file_name = 'BLXXXeval3.pkl'
+#output_file_name = 'BLXXXgrd02.pkl'
+output_file_name = 'BLXXXeval3.pkl'
 
 my_worker = Pkl2Feat_worker(pkl, output_file_name)
 my_worker.work()
