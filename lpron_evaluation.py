@@ -17,8 +17,8 @@ for spk in range(len(pkl['plp'])):
     X.append(log_feats)
 
 # Construct the output scores tensor
-y = (pkl['score'])
-num_features = len(X[0])
+y_list = (pkl['score'])
+y = torch.FloatTensor(y_list)
 
 X = torch.FloatTensor(X)
 
@@ -29,4 +29,11 @@ model.eval()
 y_pred = model(X)
 y_pred[y_pred>6]=6.0
 y_pred[y_pred<0]=0.0
-y_pred = y_pred.tolist()
+y_pred_list = y_pred.tolist()
+
+mse = calculate_mse(y_pred_list, y_list)
+pcc = calculate_pcc(y_pred, y)
+less1 = calculate_less1(y_pred, y)
+less05 = calculate_less05(y_pred, y)
+
+print("mse: "+ str(mse)+"\n pcc: "+str(pcc)+"\n less than 1 away: "+ str(less1)+"\n less than 0.5 away: "+str(less05))
